@@ -1,10 +1,10 @@
 const express = require('express');
 const app = express();
+const indexRoutes = require('./Routes/index');
+const usersRoutes = require('./Routes/users');
 
-app.get('/',(req, res) => {
-    let obj = req.query;
-    return res.send({message: "tudo ok com o metodo send"});
-})
+app.use('/', indexRoutes);
+app.use('/users', usersRoutes);
 
 app.listen(3000);
 
