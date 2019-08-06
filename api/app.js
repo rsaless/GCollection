@@ -2,9 +2,10 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const config = require('./config/config');
 
 //Mongo
-const bd_url = 'mongodb+srv://rafael_admin:naopodeadmin123456@gcdb-axygf.mongodb.net/test?retryWrites=true&w=majority';
+const bd_url = config.bd_string;
 const options = { reconnectTries: Number.MAX_VALUE, reconnectInterval: 500, poolSize: 5, useNewUrlParser: true };
 mongoose.connect(bd_url,options);
 mongoose.set('useCreateIndex', true);
