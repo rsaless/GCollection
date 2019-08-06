@@ -5,11 +5,11 @@ const auth = require('../middlewares/auth');
 router.get('/',auth, (req, res) => {
     let obj = req.query;
     console.log(res.locals.auth_data);
-    return res.send({message: "tudo ok com o metodo GET"});
+    return res.status(200).send({message: "tudo ok com o metodo GET"});
 })
 router.post('/',(req, res) => {
     let obj = req.query;
-    return res.send({message: "tudo ok com o metodo POST"});
+    return res.status(200).send({message: "tudo ok com o metodo POST"});
 })
 
 module.exports = router;
