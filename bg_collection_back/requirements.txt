@@ -1,0 +1,18 @@
+JOGOS:
+> Ver lista de jogos
+> Cadastrar novo jogo
+
+DETALHES DO JOGO:
+> Ver detalhes de um jogo
+> Editar um jogo
+> Deletar um jogo
+
+SLEEVES:
+> Ver lista de sleeves
+> Ver detalhes de um sleeve
+> Cadastrar novo sleeve
+
+DETALHES DO SLEEVE:
+> Editar um sleeve
+> Deletar um sleeve
+> Sleevar parcialmente um jogo
