@@ -1,20 +1,26 @@
-const Game = require('../models/Game');
+const {
+  createGame,
+  getAllGames,
+  getGameById,
+  updateGameById,
+  deleteGameById,
+  // Add other imports here if needed
+} = require('../models/game');
 
-const createGame = async (req, res) => {
+const create = async (req, res) => {
   try {
-    const newGame = await Game.create(req.body);
-    console.log("NEW GAME CREATED");
+    const newGame = await createGame(req.body);
+    console.log('NEW GAME CREATED');
     res.status(201).json(newGame);
   } catch (error) {
-    console.log("ERROR WHILE CREATING A GAME");
-    console.log(req.body);
+    console.log('ERROR WHILE CREATING A GAME');
     res.status(500).json({ error: error.message });
   }
 };
 
 const getAll = async (req, res) => {
   try {
-    const games = await Game.find();
+    const games = await getAllGames();
     res.json(games);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -22,12 +28,18 @@ const getAll = async (req, res) => {
 };
 
 const getGame = async (req, res) => {
-    try {
-        const game = await Game.findById(req.params.id);
-        res.json(game);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
+  try {
+    const gameId = req.params.id;
+    const game = await getGameById(gameId);
+
+    if (!game) {
+      return res.status(404).json({ message: 'Game not found' });
     }
+
+    res.json(game);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
 
 const updateGame = async (req, res) => {
@@ -35,10 +47,8 @@ const updateGame = async (req, res) => {
     const gameId = req.params.id;
     const updatedGameData = req.body;
 
-    // Find the game by ID and update it
-    const updatedGame = await Game.findByIdAndUpdate(gameId, updatedGameData, {
-      new: true,
-    });
+    // Update the game by ID
+    const updatedGame = await updateGameById(gameId, updatedGameData);
 
     // Check if the game was found and updated successfully
     if (!updatedGame) {
@@ -57,8 +67,8 @@ const deleteGame = async (req, res) => {
   try {
     const gameId = req.params.id;
 
-    // Find the game by ID and delete it
-    const deletedGame = await Game.findByIdAndDelete(gameId);
+    // Delete the game by ID
+    const deletedGame = await deleteGameById(gameId);
 
     // Check if the game was found and deleted successfully
     if (!deletedGame) {
@@ -74,9 +84,9 @@ const deleteGame = async (req, res) => {
 };
 
 module.exports = {
-    createGame,
-    getAll,
-    getGame,
-    updateGame,
-    deleteGame
-  };
+  create,
+  getAll,
+  getGame,
+  updateGame,
+  deleteGame,
+};
